@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Settings.ImageSliderUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commonUI="clr-namespace:PetoGraphics.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Expander Header="Slider" IsExpanded="false">
+        <Grid Background="#FF3C3C3C">
+            <Grid x:Name="grid" HorizontalAlignment="Center" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px"/>
+                </Grid.RowDefinitions>
+                <Label Content="Duration (s)" Grid.Row="0" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="sliderDuration" Grid.Row="0" Grid.Column="1" LostFocus="SliderDuration_LostFocus" />
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

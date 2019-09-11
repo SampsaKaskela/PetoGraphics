@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Content.GroupUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110px"/>
+            <ColumnDefinition Width="70px"/>
+            <ColumnDefinition Width="40px"/>
+            <ColumnDefinition Width="80px"/>
+            <ColumnDefinition Width="30px"/>
+            <ColumnDefinition Width="20px"/>
+            <ColumnDefinition Width="50px"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45px"/>
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Title" />
+        <TextBox x:Name="title" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" Text="Title" LostFocus="Title_LostFocus"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Texts" />
+        <TextBox x:Name="n1" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="Team" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="s1" Grid.Row="1" Grid.Column="6" Text="0-0" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="n2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Text="Team" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="s2" Grid.Row="2" Grid.Column="6" Text="0-0" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="n3" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Text="Team" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="s3" Grid.Row="3" Grid.Column="6" Text="0-0" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="n4" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" Text="Team" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="s4" Grid.Row="4" Grid.Column="6" Text="0-0" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="n5" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Text="Team" LostFocus="GroupTextbox_LostFocus" />
+        <TextBox x:Name="s5" Grid.Row="5" Grid.Column="6" Text="0-0" LostFocus="GroupTextbox_LostFocus" />
+    </Grid>
+</UserControl>

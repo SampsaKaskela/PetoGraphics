@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Settings.TextUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commonUI="clr-namespace:PetoGraphics.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Expander Header="Texts" IsExpanded="false">
+        <Grid Background="#FF3C3C3C">
+            <Grid x:Name="grid" HorizontalAlignment="Center" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px"/>
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                </Grid.RowDefinitions>
+                <Label Content="Text" Grid.Row="0" Grid.Column="0"/>
+                <ComboBox x:Name="textselect" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" SelectionChanged="Text_Changed"/>
+                <Label Content="Position X" Grid.Row="1" Grid.Column="0" />
+                <commonUI:NumericUpDown x:Name="textX" Grid.Row="1" Grid.Column="1" LostFocus="TextX_LostFocus" />
+                <Label Content="Position Y" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" />
+                <commonUI:NumericUpDown x:Name="textY" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="TextY_LostFocus" />
+                <Label Content="Width" Grid.Row="2" Grid.Column="0" />
+                <commonUI:NumericUpDown x:Name="textwidth" Grid.Row="2" Grid.Column="1" LostFocus="TextWidth_LostFocus" />
+                <Label x:Name="lineHeightLabel" Content="Line Height" Grid.Row="2" Grid.Column="3" />
+                <commonUI:NumericUpDown x:Name="lineHeight" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="LineHeight_LostFocus" />
+                <Label Content="Text Align" Grid.Row="3" Grid.Column="0" />
+                <Button Name="alignLeft" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,10,10,10" Width="70" HorizontalAlignment="Left" Content="Left" Click="AlignLeft_Click" />
+                <Button Name="alignCenter" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Margin="10" Width="70" HorizontalAlignment="Center" Content="Center" Click="AlignCenter_Click" />
+                <Button Name="alignRight" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Margin="10,10,0,10" Width="70" HorizontalAlignment="Right" Content="Right" Click="AlignRight_Click" />
+                <Label Content="Glow" Grid.Row="4" Grid.Column="0"/>
+                <CheckBox x:Name="glowEnable" Grid.Row="4" Grid.Column="1" Content="Glow" Checked="Glow_Checked" Unchecked="Glow_Unchecked"/>
+                <TextBox x:Name="glowColor" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" LostFocus="GlowColor_LostFocus" IsEnabled="False"/>
+                <Button Content="Font" Grid.Row="5" Grid.ColumnSpan="7" Click="Font_Click" />
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Settings.AnimationUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commonUI="clr-namespace:PetoGraphics.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Expander Header="Animation" IsExpanded="false">
+        <Grid Background="#FF3C3C3C">
+            <Grid x:Name="basicAnimation" HorizontalAlignment="Center" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px"/>
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                </Grid.RowDefinitions>
+                <Label Content="Animation In" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" FontSize="16" FontWeight="Bold"/>
+                <Label Content="Style" Grid.Row="1" Grid.Column="0"/>
+                <ComboBox x:Name="animationInStyle" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" DropDownClosed="AnimationInStyle_Changed">
+                    <ComboBoxItem Content="Fade_In"/>
+                    <ComboBoxItem Content="Slide_From_Top"/>
+                    <ComboBoxItem Content="Slide_From_Bottom"/>
+                    <ComboBoxItem Content="Slide_From_Left"/>
+                    <ComboBoxItem Content="Slide_From_Right"/>
+                    <ComboBoxItem Content="Wipe_From_Top"/>
+                    <ComboBoxItem Content="Wipe_From_Right"/>
+                    <ComboBoxItem Content="ExpandY"/>
+                    <ComboBoxItem Content="ExpandX"/>
+                </ComboBox>
+                <CheckBox x:Name="animationInAddFade" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Checked="AnimationInAddFade_Checked" Unchecked="AnimationInAddFade_Unchecked" Content="Fade"/>
+                <Label Content="Duration (ms)" Grid.Row="2" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="animationInDuration" Grid.Row="2" Grid.Column="1" LostFocus="AnimationInDuration_LostFocus"/>
+                <Label Content="Delay (ms)" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="animationInDelay" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="AnimationInDelay_LostFocus"/>
+                <CheckBox x:Name="animationineasing" Grid.Row="3" Grid.Column="1" Checked="AnimationInEasing_Checked" Unchecked="AnimationInEasing_Unchecked" Content="Ease"/>
+                <Label Content="EasePower" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="animationInEasePower" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" IsEnabled="False" LostFocus="AnimationInEasePower_LostFocus"/>
+                <Label Content="Animation Out" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" FontSize="16" FontWeight="Bold"/>
+                <Label Content="Style" Grid.Row="5" Grid.Column="0"/>
+                <ComboBox x:Name="animationOutStyle" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" DropDownClosed="AnimationOutStyle_Changed">
+                    <ComboBoxItem Content="Fade_Out"/>
+                    <ComboBoxItem Content="Slide_To_Top"/>
+                    <ComboBoxItem Content="Slide_To_Bottom"/>
+                    <ComboBoxItem Content="Slide_To_Left"/>
+                    <ComboBoxItem Content="Slide_To_Right"/>
+                    <ComboBoxItem Content="Wipe_From_Bottom"/>
+                    <ComboBoxItem Content="Wipe_From_Right"/>
+                    <ComboBoxItem Content="SquishY"/>
+                    <ComboBoxItem Content="SquishX"/>
+                </ComboBox>
+                <CheckBox x:Name="animationOutAddFade" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" Checked="AnimationOutAddFade_Checked" Unchecked="AnimationOutAddFade_Unchecked" Content="Fade"/>
+                <Label Content="Duration (ms)" Grid.Row="6" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="animationOutDuration" Grid.Row="6" Grid.Column="1" LostFocus="AnimationOutDuration_LostFocus"/>
+                <Label Content="Delay (ms)" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="animationOutDelay" Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="AnimationOutDelay_LostFocus"/>
+                <CheckBox x:Name="animationOutEasing" Grid.Row="7" Grid.Column="1" Checked="AnimationOutEasing_Checked" Unchecked="AnimationOutEasing_Unchecked"/>
+                <Label Content="Ease" Grid.Row="7" Grid.Column="1" Margin="20,0,0,0"/>
+                <Label Content="EasePower" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="animationOutEasePower" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="AnimationOutEasePower_LostFocus" IsEnabled="False"/>
+            </Grid>
+            <Grid x:Name="sequenceAnimation" HorizontalAlignment="Center" Margin="0,10" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px"/>
+                    <RowDefinition Height="45px" />
+                </Grid.RowDefinitions>
+                <Label Content="In start" Grid.Row="0" Grid.Column="0" />
+                <TextBox x:Name="sequenceInStart" Grid.Row="0" Grid.Column="1" LostFocus="SequenceInStart_LostFocus" />
+                <Label Content="Loop start" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="sequenceLoopStart" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="SequenceLoopStart_LostFocus" />
+                <Label Content="Out start" Grid.Row="1" Grid.Column="0" />
+                <TextBox x:Name="sequenceOutStart" Grid.Row="1" Grid.Column="1" LostFocus="SequenceOutStart_LostFocus" />
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

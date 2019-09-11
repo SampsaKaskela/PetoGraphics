@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Content.MediaUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110px"/>
+            <ColumnDefinition Width="80px"/>
+            <ColumnDefinition Width="40px"/>
+            <ColumnDefinition Width="30px"/>
+            <ColumnDefinition Width="30px"/>
+            <ColumnDefinition Width="30px"/>
+            <ColumnDefinition Width="20px"/>
+            <ColumnDefinition Width="50px"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45px"/>
+            <RowDefinition Height="45px" />
+        </Grid.RowDefinitions>
+        <Label Name="label" Content="File" Grid.Row="0" Grid.Column="0" />
+        <TextBox x:Name="fileName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" IsReadOnly="True"/>
+        <Button Content="..." Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Margin="5,10,0,10" Click="MediaFile_Click">
+        </Button>
+        <Label Content="Volume" Grid.Row="1" Grid.Column="1" />
+        <TextBox x:Name="volume" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Foreground="White" LostFocus="MediaVolume_LostFocus"/>
+        <CheckBox x:Name="loop" Content="Loop" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Checked="MediaLoop_Checked" Unchecked="MediaLoop_Unchecked"/>
+        <MediaElement x:Name="mediaElement" Visibility="Collapsed" MediaOpened="File_MediaOpened" Volume="0" LoadedBehavior="Manual"/>
+    </Grid>
+</UserControl>

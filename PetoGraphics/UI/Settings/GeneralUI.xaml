@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Settings.GeneralUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commonUI="clr-namespace:PetoGraphics.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Expander Header="General">
+        <Grid Background="#FF3C3C3C" Margin="0">
+            <Grid x:Name="grid" HorizontalAlignment="Center" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                </Grid.RowDefinitions>
+                <Label Content="Name" Grid.Row="0" Grid.Column="0"/>
+                <TextBox x:Name="name" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" LostFocus="Name_LostFocus"/>
+                <Label Content="Image" Grid.Row="1" Grid.Column="0"/>
+                <TextBox x:Name="controlImage" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" IsReadOnly="True"/>
+                <Button x:Name="browseimage" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Content="..." Click="Browse" Margin="5,10,0,10" />
+                <Button Content="Clear" Grid.Row="1" Grid.Column="6" Click="ClearImage_Click" Margin="5,10,0,10" />
+                <Label Content="Image stretch" Grid.Row="2" Grid.Column="0"/>
+                <RadioButton x:Name="fill" Grid.Row="2" Grid.Column="1" Content="Fill" GroupName="imageType" Checked="Fill_Checked" IsChecked="True"/>
+                <RadioButton x:Name="fit" Grid.Row="2" Grid.Column="3" Content="Fit" GroupName="imageType" Checked="Fit_Checked"/>
+                <Label Content="Position X" Grid.Row="3" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="controlX" Grid.Row="3" Grid.Column="1" LostFocus="PositionX_LostFocus"/>
+                <Label Content="Position Y" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="controlY" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="PositionY_LostFocus"/>
+                <Label Content="Width" Grid.Row="4" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="controlWidth" Grid.Row="4" Grid.Column="1" LostFocus="Width_LostFocus"/>
+                <Label Content="Height" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="controlHeight" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="Height_LostFocus"/>
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

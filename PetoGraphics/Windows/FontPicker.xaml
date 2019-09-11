@@ -1,0 +1,14 @@
+﻿<Window x:Class="PetoGraphics.FontPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Font" Height="80" Width="483" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="FontPicker_Loaded">
+    <Grid Background="#FF404040">
+        <ComboBox Name="fonts" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Fonts_Changed" />
+        <Button Content="B" HorizontalAlignment="Left" Margin="168,10,0,0" VerticalAlignment="Top" Width="25" FontWeight="Bold" Click="Bold_Click" />
+        <Button Content="I" HorizontalAlignment="Left" Margin="198,10,0,0" VerticalAlignment="Top" Width="25" FontStyle="Italic" Click="Style_Changed" />
+        <Label Content="Color" HorizontalAlignment="Left" Margin="228,6,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <TextBox Name="color" HorizontalAlignment="Left" Height="23" Margin="276,10,0,0" Text="#FFFFFFFF" VerticalAlignment="Top" Width="99" LostFocus="Color_LostFocus" />
+        <Label Name="example" Content="Example" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="390,6,0,0" VerticalAlignment="Top" />
+        <TextBox Name="size" HorizontalAlignment="Left" Height="23" Margin="135,10,0,0" Text="20" VerticalAlignment="Top" Width="28" LostFocus="Size_LostFocus" />
+    </Grid>
+</Window>

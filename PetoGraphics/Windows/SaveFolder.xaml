@@ -1,0 +1,9 @@
+﻿<Window x:Class="PetoGraphics.SaveFolder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Folder name" Height="80" Width="308" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FF1B1B1C">
+        <Button Name="save" Content="Save" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Save_Click"/>
+        <TextBox Name="folderName" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="192"/>
+    </Grid>
+</Window>

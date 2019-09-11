@@ -1,0 +1,52 @@
+﻿<Window x:Class="PetoGraphics.JSON"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetoGraphics"
+        mc:Ignorable="d"
+        Title="JSON" Width="400" Height="550" Closing="Json_Closing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF404040">
+    <Grid Background="#FF404040" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110px"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45px"/>
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+            <RowDefinition Height="45px" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" Content="Parser" FontSize="14" Foreground="White"/>
+        <ComboBox x:Name="parser" Grid.Row="0" Grid.Column="1" Margin="0,10" Text="tournaments.peliliiga.fi" Background="White">
+            <ComboBoxItem Content="tournaments.peliliiga.fi"/>
+            <ComboBoxItem Content="Toornament"/>
+        </ComboBox>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" VerticalContentAlignment="Center" Content="Groups" FontSize="16" Foreground="Gainsboro" FontWeight="Bold"/>
+        <Label Content="Group A" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="groupA" Grid.Row="2" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/groups/view/4.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Content="Group B" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="groupB" Grid.Row="3" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/groups/view/5.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Content="Group C" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="groupC" Grid.Row="4" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/groups/view/4.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Content="Group D" Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="groupD" Grid.Row="5" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/groups/view/5.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="6" VerticalContentAlignment="Center" Content="Brackets" FontSize="16" Foreground="Gainsboro" FontWeight="Bold"/>
+        <Label Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" Content="Bracket A" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="bracketA" Grid.Row="7" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/tournaments/hearthstone/brackets/37.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" Content="Bracket B" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="bracketB" Grid.Row="8" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/tournaments/hearthstone/brackets/37.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" Content="Bracket C" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="bracketC" Grid.Row="9" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/tournaments/hearthstone/brackets/37.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+        <Label Grid.Row="10" Grid.Column="0" VerticalContentAlignment="Center" Content="Bracket D" FontSize="14" Foreground="White"/>
+        <TextBox x:Name="bracketD" Grid.Row="10" Grid.Column="1" Margin="0,10" Text="http://tournaments.peliliiga.fi/winter16/tournaments/hearthstone/brackets/37.json" Background="#FF373737" BorderBrush="#FF212121" Foreground="White"/>
+
+    </Grid>
+</Window>

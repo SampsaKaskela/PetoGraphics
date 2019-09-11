@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="PetoGraphics.UI.Settings.BracketUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commonUI="clr-namespace:PetoGraphics.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Expander Header="Bracket" IsExpanded="false">
+        <Grid Background="#FF3C3C3C">
+            <Grid x:Name="grid" HorizontalAlignment="Center" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110px"/>
+                    <ColumnDefinition Width="70px"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="80px"/>
+                    <ColumnDefinition Width="30px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="50px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45px"/>
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                    <RowDefinition Height="45px" />
+                </Grid.RowDefinitions>
+                <Label Content="Competitors" Grid.Row="0" Grid.Column="0" />
+                <ComboBox x:Name="competitorSelect" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" SelectionChanged="CompetitorSelect_Changed" />
+                <Label Content="Position X" Grid.Row="1" Grid.Column="0"/>
+                <commonUI:NumericUpDown x:Name="bracketX" Grid.Row="1" Grid.Column="1" LostFocus="BracketX_LostFocus" />
+                <Label Content="Position Y" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" />
+                <commonUI:NumericUpDown x:Name="bracketY" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="BracketY_LostFocus" />
+                <Label Content="Width" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="Gainsboro"/>
+                <commonUI:NumericUpDown x:Name="bracketWidth" Grid.Row="2" Grid.Column="1" LostFocus="BracketWidth_LostFocus" />
+                <Label Content="Height" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"/>
+                <commonUI:NumericUpDown x:Name="bracketHeight" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="BracketHeight_LostFocus"/>
+                <Label Content="Offset X" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="Gainsboro"/>
+                <commonUI:NumericUpDown x:Name="offsetX" Grid.Row="3" Grid.Column="1" LostFocus="OffsetX_LostFocus" />
+                <Label Content="Offset Y" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" />
+                <commonUI:NumericUpDown x:Name="offsetY" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" LostFocus="OffsetY_LostFocus" />
+                <Label Content="Line Color" Grid.Row="4" Grid.Column="0" />
+                <commonUI:NumericUpDown x:Name="red" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" LostFocus="Color_LostFocus" Width="70" />
+                <commonUI:NumericUpDown x:Name="green" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" LostFocus="Color_LostFocus" Width="70" />
+                <commonUI:NumericUpDown x:Name="blue" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Right" LostFocus="Color_LostFocus" Width="70" />
+                <Label Content="Line Thickness" Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14" Foreground="Gainsboro"/>
+                <commonUI:NumericUpDown x:Name="thickness" Grid.Row="5" Grid.Column="1" LostFocus="Thickness_LostFocus" />
+                <CheckBox x:Name="hideVertical" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Content="Hide Vertical Lines" Checked="HideVertical_Checked" Unchecked="HideVertical_Unchecked"/>
+                <CheckBox x:Name="hideHorizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" Content="Hide Horizontal Lines" Foreground="Gainsboro" Checked="HideHorizontal_Checked" Unchecked="HideHorizontal_Unchecked"/>
+                <Button Content="Font" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="7" Click="BracketFont_Click" />
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

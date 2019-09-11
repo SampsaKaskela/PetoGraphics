@@ -1,0 +1,17 @@
+﻿<Window x:Class="PetoGraphics.Source"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:NDI="clr-namespace:NDI;assembly="
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        WindowStartupLocation="Manual" Left="631.5" Top="0"
+        Title="Source" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Closing="Source_Closing" Background="Black">
+    <Grid>
+        <NDI:NdiSendContainer x:Name="NDIsender">
+            <Grid Name="container" Width="1280" Height="720">
+                <Viewbox Stretch="Fill" UseLayoutRounding="True">
+                    <Canvas x:Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="1920" Height="1080" Background="Transparent"/>
+                </Viewbox>
+            </Grid>
+        </NDI:NdiSendContainer>
+    </Grid>
+</Window>
