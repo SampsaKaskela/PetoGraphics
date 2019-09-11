@@ -15,16 +15,18 @@ namespace PetoGraphics
             X = 200;
             Y = 200;
 
-            Texts[0] = new GraphicText(container);
-            Texts[0].Rich = true;
-            Texts[0].Name = "Text";
-            Texts[0].Content = "Example\nExample\nExample\nExample\nExample";
-            Texts[0].X = 32;
-            Texts[0].Y = 10;
-            Texts[0].FontSize = 40;
-            Texts[0].FontWeight = FontWeights.Bold;
-            Texts[0].Width = 450;
-            Texts[0].LineHeight = 50;
+            Texts[0] = new GraphicText(container)
+            {
+                Rich = true,
+                Name = "Text",
+                Content = "Example\nExample\nExample\nExample\nExample",
+                X = 32,
+                Y = 10,
+                FontSize = 40,
+                FontWeight = FontWeights.Bold,
+                Width = 450,
+                LineHeight = 50
+            };
         }
     }
 }

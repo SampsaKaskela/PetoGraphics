@@ -15,14 +15,16 @@ namespace PetoGraphics
             X = 0;
             Y = 900;
 
-            Texts[0] = new GraphicText(container);
-            Texts[0].Name = "Text";
-            Texts[0].Content = "Example";
-            Texts[0].X = 50;
-            Texts[0].Y = 15;
-            Texts[0].FontSize = 60;
-            Texts[0].FontWeight = FontWeights.Bold;
-            Texts[0].Width = 600;
+            Texts[0] = new GraphicText(container)
+            {
+                Name = "Text",
+                Content = "Example",
+                X = 50,
+                Y = 15,
+                FontSize = 60,
+                FontWeight = FontWeights.Bold,
+                Width = 600
+            };
         }
 
         public int SelectedIndex { get; set; } = 0;

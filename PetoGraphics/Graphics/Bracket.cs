@@ -22,21 +22,27 @@ namespace PetoGraphics
             X = 0;
             Y = 0;
 
-            Texts[0] = new GraphicText(container);
-            Texts[0].Name = "Title";
-            Texts[0].Content = "Title";
-            Texts[0].X = 270;
-            Texts[0].Y = 90;
-            Texts[0].FontWeight = FontWeights.Bold;
-            Texts[0].FontSize = 40;
-            Texts[0].Width = 780;
+            Texts[0] = new GraphicText(container)
+            {
+                Name = "Title",
+                Content = "Title",
+                X = 270,
+                Y = 90,
+                FontWeight = FontWeights.Bold,
+                FontSize = 40,
+                Width = 780
+            };
 
             for (int i = 0; i < Names.Length; i++)
             {
-                Names[i] = new GraphicText(container);
-                Names[i].Content = "TBD";
-                Scores[i] = new GraphicText(container);
-                Scores[i].Content = "0";
+                Names[i] = new GraphicText(container)
+                {
+                    Content = "TBD"
+                };
+                Scores[i] = new GraphicText(container)
+                {
+                    Content = "0"
+                };
             }
 
             Color = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF7A0606"));

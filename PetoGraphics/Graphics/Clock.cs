@@ -23,14 +23,16 @@ namespace PetoGraphics
 
             Texts = new GraphicText[1];
 
-            Texts[0] = new GraphicText(container);
-            Texts[0].Name = "Time";
-            Texts[0].Content = DateTime.Now.ToString("HH:mm");
-            Texts[0].X = 20;
-            Texts[0].Y = 35;
-            Texts[0].FontSize = 60;
-            Texts[0].FontWeight = FontWeights.Bold;
-            Texts[0].Width = 200;
+            Texts[0] = new GraphicText(container)
+            {
+                Name = "Time",
+                Content = DateTime.Now.ToString("HH:mm"),
+                X = 20,
+                Y = 35,
+                FontSize = 60,
+                FontWeight = FontWeights.Bold,
+                Width = 200
+            };
         }
 
         private void Count_Elapsed(object sender, EventArgs e)
