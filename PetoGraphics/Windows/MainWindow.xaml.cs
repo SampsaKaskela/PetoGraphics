@@ -92,7 +92,6 @@ namespace PetoGraphics
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //diagnosticstimer.Stop();
-            CefSharp.Cef.Shutdown();
             App.Current.Shutdown();
         }
 
