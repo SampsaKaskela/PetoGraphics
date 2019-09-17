@@ -66,32 +66,24 @@ namespace PetoGraphics.UI.Settings
             {
                 try
                 {
-                    GraphicController.Selected.Graphic.Image.SequenceFrames.Clear();
-                    if (GraphicController.Selected.Graphic.Image.IsSequence)
+                    GraphicController.Selected.Graphic.Image.UriSource = fd.FileName;
+                    if (GraphicController.Selected.Graphic is SequencePlayer)
                     {
-                        GraphicController.Selected.Graphic.Image.SequenceFrames = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(fd.FileName), "*" + System.IO.Path.GetExtension(fd.FileName)).ToList();
-                        if (GraphicController.Selected.Graphic is SequencePlayer)
+                        if (((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
                         {
-                            if (((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
-                            {
-                                ((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
-                                Windows.Main.AnimationSettingsUI.sequenceInStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame.ToString();
-                            }
-                            if (((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
-                            {
-                                ((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
-                                Windows.Main.AnimationSettingsUI.sequenceLoopStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame.ToString();
-                            }
-                            if (((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
-                            {
-                                ((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
-                                Windows.Main.AnimationSettingsUI.sequenceOutStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame.ToString();
-                            }
+                            ((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
+                            Windows.Main.AnimationSettingsUI.sequenceInStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).InStartFrame.ToString();
                         }
-                    }
-                    else
-                    {
-                        GraphicController.Selected.Graphic.Image.UriSource = fd.FileName;
+                        if (((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
+                        {
+                            ((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
+                            Windows.Main.AnimationSettingsUI.sequenceLoopStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).LoopStartFrame.ToString();
+                        }
+                        if (((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame >= GraphicController.Selected.Graphic.Image.SequenceFrames.Count)
+                        {
+                            ((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame = GraphicController.Selected.Graphic.Image.SequenceFrames.Count - 1;
+                            Windows.Main.AnimationSettingsUI.sequenceOutStart.Text = ((SequencePlayer)GraphicController.Selected.Graphic).OutStartFrame.ToString();
+                        }
                     }
                     controlImage.Text = System.IO.Path.GetFileName(fd.FileName);
                 }

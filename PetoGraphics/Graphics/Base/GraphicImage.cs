@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using System;
 using System.IO;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace PetoGraphics
 {
@@ -13,7 +14,7 @@ namespace PetoGraphics
     {
         private bool isSequence = false;
         private DispatcherTimer sequenceTimer = new DispatcherTimer();
-        private string uriSource;
+        private string uriSource = null;
 
         public GraphicImage(Grid container)
         {
@@ -58,8 +59,20 @@ namespace PetoGraphics
             get { return isSequence; }
             set
             {
-                if (!value && value != isSequence)
+                if (value)
                 {
+                    if (uriSource != null)
+                    {
+                        SequenceFrames = Directory.GetFiles(Path.GetDirectoryName(uriSource), "*" + Path.GetExtension(uriSource)).ToList();
+                    }
+                    else
+                    {
+                        SequenceFrames = new List<string>();
+                    }
+                }
+                else
+                {
+                    SequenceFrames.Clear();
                     sequenceTimer.Stop();
                     if (uriSource != null)
                     {
@@ -105,11 +118,11 @@ namespace PetoGraphics
                 {
                     BitmapImage bmp = new BitmapImage();
                     bmp.BeginInit();
-                    bmp.UriSource = new Uri(uriSource);
+                    bmp.UriSource = new Uri(value);
 
                     bmp.CacheOption = BitmapCacheOption.OnLoad;
                     bmp.EndInit();
-                    if (Path.GetExtension(uriSource) == ".gif")
+                    if (Path.GetExtension(value) == ".gif")
                     {
                         WpfAnimatedGif.ImageBehavior.SetAnimatedSource(Image, bmp);
                     }
@@ -118,10 +131,18 @@ namespace PetoGraphics
                         WpfAnimatedGif.ImageBehavior.SetAnimatedSource(Image, null);
                         Image.Source = bmp;
                     }
+
+                    if (isSequence)
+                    {
+                        SequenceFrames = Directory.GetFiles(Path.GetDirectoryName(value), "*" + Path.GetExtension(value)).ToList();
+                    }
+                    else
+                    {
+                        SequenceFrames = new List<string>();
+                    }
                 }
                 catch
                 {
-                    MessageBox.Show(value);
                     CustomMessageBox.Show("Image format not supported.");
                 }
             }

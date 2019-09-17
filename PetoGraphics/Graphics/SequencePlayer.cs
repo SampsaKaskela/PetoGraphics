@@ -11,7 +11,8 @@ namespace PetoGraphics
 
         public SequencePlayer(Canvas sourceCanvas) : base(sourceCanvas)
         {
-            Controller.name.Content = "SequencePlayer";
+            Controller.name.Content = "Sequence";
+            Image.IsSequence = true;
             timer.Tick += SequenceFrame_Elapsed;
 
             GraphicWidth = 1920;
@@ -31,7 +32,7 @@ namespace PetoGraphics
             Image.CurrentSequenceFrame = InStartFrame;
             exit = false;
             Controller.Active = true;
-            Image.StartSequence();
+            timer.Start();
         }
 
         public override void Hide()
@@ -50,8 +51,8 @@ namespace PetoGraphics
                     {
                         if (Image.CurrentSequenceFrame >= Image.SequenceFrames.Count)
                         {
-                            Image.StopSequence();
                             Image.CurrentSequenceFrame = InStartFrame;
+                            timer.Stop();
                         }
                     }
                     else
