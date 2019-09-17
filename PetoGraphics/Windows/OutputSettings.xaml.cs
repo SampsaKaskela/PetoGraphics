@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using PetoGraphics.Helpers;
+using NAudio.CoreAudioApi;
 
 namespace PetoGraphics
 {
@@ -14,22 +15,26 @@ namespace PetoGraphics
             InitializeComponent();
         }
 
-        public int SourceMonitor { get; set; } = 0;
-
         public int AlphaMonitor { get; set; } = 0;
+
+        public MMDevice AudioDevice { get; } = null;
 
         public double FPS { get; set; } = 60;
 
-        public void SetWidth(double width)
+        public bool IncludeAudio { get; set; } = true;
+
+        public int SourceMonitor { get; set; } = 0;
+
+        public void SetFPS(double fps, List<GraphicController> list)
         {
-            if (width > 1920)
+            for (int i = 0; i < list.Count; i++)
             {
-                width = 1920;
-                widthSetting.Text = "1920";
+                if (!(list[i].Graphic is Media) && list[i].Graphic != null)
+                {
+                    list[i].Graphic.Image.FPS = fps;
+                }
+                SetFPS(fps, list[i].Children);
             }
-            Windows.Source.container.Width = width;
-            Windows.Alpha.container.Width = width;
-            widthSetting.Text = width.ToString();
         }
 
         public void SetHeight(double height)
@@ -44,22 +49,34 @@ namespace PetoGraphics
             heightSetting.Text = height.ToString();
         }
 
-        public void SetFPS(double fps, List<GraphicController> list)
+        public void SetWidth(double width)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (width > 1920)
             {
-                if (!(list[i].Graphic is Media) && list[i].Graphic != null)
-                {
-                    list[i].Graphic.Image.FPS = fps;
-                }
-                SetFPS(fps, list[i].Children);
+                width = 1920;
+                widthSetting.Text = "1920";
             }
+            Windows.Source.container.Width = width;
+            Windows.Alpha.container.Width = width;
+            widthSetting.Text = width.ToString();
         }
 
-        private void OutputSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void AlphaMonitorSelect_Changed(object sender, EventArgs e)
         {
-            Windows.OutputSettings.Hide();
-            e.Cancel = true;
+            AlphaMonitor = alphaMonitorSelect.SelectedIndex;
+            if (AlphaMonitor >= Screen.AllScreens.Length)
+            {
+                AlphaMonitor = 0;
+            }
+            Screen s2 = Screen.AllScreens[AlphaMonitor];
+            System.Drawing.Rectangle r2 = s2.WorkingArea;
+            Windows.Alpha.Left = r2.Right - Windows.Source.Width;
+            Windows.Alpha.Top = r2.Top;
+        }
+
+        private void AudioDeviceSelect_Changed(object sender, EventArgs e)
+        {
+
         }
 
         private void Color_Changed(object sender, EventArgs e)
@@ -88,20 +105,15 @@ namespace PetoGraphics
             }
         }
 
-        private void Width_LostFocus(object sender, RoutedEventArgs e)
+        private void FPS_LostFocus(object sender, RoutedEventArgs e)
         {
-            Validators.PositiveInteger(widthSetting, (num) =>
+            Validators.PositiveDouble(FPSsetting, (num) =>
             {
-                SetWidth(num);
+                FPS = num;
+                SetFPS(num, GraphicController.rootList);
             });
         }
-        private void Height_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Validators.PositiveInteger(heightSetting, (num) =>
-            {
-                SetHeight(num);
-            });
-        }
+
         private void Fullscreen_Checked(object sender, RoutedEventArgs e)
         {
             widthSetting.IsEnabled = false;
@@ -122,13 +134,28 @@ namespace PetoGraphics
             Windows.Alpha.WindowStyle = WindowStyle.SingleBorderWindow;
         }
 
-        private void FPS_LostFocus(object sender, RoutedEventArgs e)
+        private void Height_LostFocus(object sender, RoutedEventArgs e)
         {
-            Validators.PositiveDouble(FPSsetting, (num) =>
+            Validators.PositiveInteger(heightSetting, (num) =>
             {
-                FPS = num;
-                SetFPS(num, GraphicController.rootList);
+                SetHeight(num);
             });
+        }
+
+        private void IncludeAudio_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void IncludeAudio_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OutputSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Windows.OutputSettings.Hide();
+            e.Cancel = true;
         }
 
         private void SourceMonitorSelect_Changed(object sender, EventArgs e)
@@ -144,17 +171,12 @@ namespace PetoGraphics
             Windows.Source.Top = r1.Top;
         }
 
-        private void AlphaMonitorSelect_Changed(object sender, EventArgs e)
+        private void Width_LostFocus(object sender, RoutedEventArgs e)
         {
-            AlphaMonitor = alphaMonitorSelect.SelectedIndex;
-            if (AlphaMonitor >= Screen.AllScreens.Length)
+            Validators.PositiveInteger(widthSetting, (num) =>
             {
-                AlphaMonitor = 0;
-            }
-            Screen s2 = Screen.AllScreens[AlphaMonitor];
-            System.Drawing.Rectangle r2 = s2.WorkingArea;
-            Windows.Alpha.Left = r2.Right - Windows.Source.Width;
-            Windows.Alpha.Top = r2.Top;
+                SetWidth(num);
+            });
         }
     }
 }

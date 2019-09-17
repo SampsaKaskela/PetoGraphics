@@ -14,8 +14,7 @@ namespace PetoGraphics.Helpers
             {
                 textbox.Text = "0";
             }
-            double num;
-            if (double.TryParse(textbox.Text, out num))
+            if (double.TryParse(textbox.Text, out double num))
             {
                 ClearError(textbox);
                 callback(num);
@@ -35,8 +34,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            double num;
-            if (double.TryParse(textBox.Text, out num))
+            if (double.TryParse(textBox.Text, out double num))
             {
                 ClearError(textBox);
                 callback(num);
@@ -56,8 +54,7 @@ namespace PetoGraphics.Helpers
             {
                 textbox.Text = "0";
             }
-            double num;
-            if (double.TryParse(textbox.Text, out num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
+            if (double.TryParse(textbox.Text, out double num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
             {
                 ClearError(textbox);
                 callback(num);
@@ -77,8 +74,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            double num;
-            if (double.TryParse(textBox.Text, out num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
+            if (double.TryParse(textBox.Text, out double num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
             {
                 ClearError(textBox);
                 callback(num);
@@ -98,8 +94,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            int num;
-            if (int.TryParse(textBox.Text, out num))
+            if (int.TryParse(textBox.Text, out int num))
             {
                 ClearError(textBox);
                 callback(num);
@@ -119,8 +114,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            int num;
-            if (int.TryParse(textBox.Text, out num))
+            if (int.TryParse(textBox.Text, out int num))
             {
                 ClearError(textBox);
                 callback(num);
@@ -140,8 +134,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            int num;
-            if (int.TryParse(textBox.Text, out num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
+            if (int.TryParse(textBox.Text, out int num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
             {
                 ClearError(textBox);
                 callback(num);
@@ -161,8 +154,7 @@ namespace PetoGraphics.Helpers
             {
                 textBox.Text = "0";
             }
-            int num;
-            if (int.TryParse(textBox.Text, out num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
+            if (int.TryParse(textBox.Text, out int num) && ((num >= 0 && includeZero) || (num > 0 && !includeZero)))
             {
                 ClearError(textBox);
                 callback(num);

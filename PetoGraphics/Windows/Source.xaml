@@ -1,8 +1,7 @@
 ﻿<Window x:Class="PetoGraphics.Source"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:NDI="clr-namespace:NDI;assembly="
-        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:NDI="clr-namespace:NewTek.NDI.WPF"
         WindowStartupLocation="Manual" Left="631.5" Top="0"
         Title="Source" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Closing="Source_Closing" Background="Black">
     <Grid>

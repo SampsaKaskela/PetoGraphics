@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetoGraphics"
-        xmlns:NDI="clr-namespace:NDI;assembly="
+        xmlns:NDI="clr-namespace:NewTek.NDI.WPF"
         mc:Ignorable="d"
         Title="Alpha" SizeToContent="WidthAndHeight" Background="Black" ResizeMode="NoResize" Closing="Alpha_Closing">
     <NDI:NdiSendContainer x:Name="NDIsender">

@@ -5,7 +5,7 @@
     <Grid Background="#FF404040">
         <Label Content="Name" HorizontalAlignment="Left" Margin="21,21,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White"/>
         <TextBox x:Name="NDI_name" HorizontalAlignment="Left" Height="23" Margin="172,25,0,0" TextWrapping="Wrap" Text="PetoGraphics" VerticalAlignment="Top" Width="138"/>
-        <Button x:Name="sendSource" Content="Source" HorizontalAlignment="Left" Margin="21,71,0,0" VerticalAlignment="Top" Width="124" Click="SendSource1_Click" />
+        <Button x:Name="sendSource" Content="Source" HorizontalAlignment="Left" Margin="21,71,0,0" VerticalAlignment="Top" Width="124" Click="SendSource_Click" />
         <Button x:Name="sendAlpha" Content="Alpha" HorizontalAlignment="Left" Margin="186,71,0,0" VerticalAlignment="Top" Width="124" Click="SendAlpha_Click" />
         <Label HorizontalAlignment="Left" Margin="121,108,0,0" VerticalAlignment="Top">
             <Hyperlink NavigateUri=" http://www.newtek.com/ndi" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">

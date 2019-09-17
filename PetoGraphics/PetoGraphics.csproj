@@ -142,6 +142,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -160,6 +162,25 @@
     <Compile Include="Graphics\ImageSwitcher.cs" />
     <Compile Include="Graphics\RichText.cs" />
     <Compile Include="Helpers\Validators.cs" />
+    <Compile Include="NDIlib\AudioFrame.cs" />
+    <Compile Include="NDIlib\Finder.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.compat.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.deprecated.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Find.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Lib.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Recv.ex.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Recv.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Routing.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.Send.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.structs.Interop.cs" />
+    <Compile Include="NDIlib\Pinvoke\Processing.NDI.utilities.Interop.cs" />
+    <Compile Include="NDIlib\Router.cs" />
+    <Compile Include="NDIlib\Sender.cs" />
+    <Compile Include="NDIlib\Source.cs" />
+    <Compile Include="NDIlib\Utilities.cs" />
+    <Compile Include="NDIlib\VideoFrame.cs" />
+    <Compile Include="NDIlib\WPF.ReceiveView.cs" />
+    <Compile Include="NDIlib\Wpf.SendContainer.cs" />
     <Compile Include="Providers\Peliliiga.cs" />
     <Compile Include="Providers\Xerberus.cs" />
     <Compile Include="UI\Content\ImageSwitcherUI.xaml.cs">
@@ -232,7 +253,6 @@
     <Compile Include="UI\Content\TextUI.xaml.cs">
       <DependentUpon>TextUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Externals\NDI.Utilities Interop .cs" />
     <Compile Include="Graphics\Base\GraphicAnimation.cs" />
     <Compile Include="Graphics\Blank.cs" />
     <Compile Include="Graphics\Clock.cs" />
@@ -240,9 +260,6 @@
     <Compile Include="Graphics\SequencePlayer.cs" />
     <Compile Include="Graphics\DoubleText.cs" />
     <Compile Include="Archive\JSONreader.cs" />
-    <Compile Include="Externals\NDI.Common Interop.cs" />
-    <Compile Include="Externals\NDI.Send Interop.cs" />
-    <Compile Include="Externals\NDI.Send.Container.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="UI\Settings\ImageSliderUI.xaml.cs">

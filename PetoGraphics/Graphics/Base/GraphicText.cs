@@ -22,11 +22,13 @@ namespace PetoGraphics
             label.Height = 1000;
             label.Foreground = Brushes.White;
             label.FontFamily = new FontFamily("Roboto");
-            DropShadowEffect effect = new DropShadowEffect();
-            effect.BlurRadius = 10;
-            effect.Color = Colors.White;
-            effect.ShadowDepth = 0;
-            effect.Opacity = 0;
+            DropShadowEffect effect = new DropShadowEffect
+            {
+                BlurRadius = 10,
+                Color = Colors.White,
+                ShadowDepth = 0,
+                Opacity = 0
+            };
             label.Effect = effect;
             container.Children.Add(label);
             Store.Instance.OnUpdate += StoreChanged;

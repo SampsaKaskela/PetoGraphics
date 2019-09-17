@@ -26,12 +26,12 @@ namespace PetoGraphics
             e.Cancel = true;
         }
 
-        private void SendSource1_Click(object sender, RoutedEventArgs e)
+        private void SendSource_Click(object sender, RoutedEventArgs e)
         {
             if (!initialized)
             {
-                initialized = Windows.Source.NDIsender.NDIinit();
-                Windows.Alpha.NDIsender.NDIinit();
+                initialized = Windows.Source.NDIsender.Init();
+                Windows.Alpha.NDIsender.Init();
             }
             if (initialized)
             {
@@ -43,7 +43,7 @@ namespace PetoGraphics
                         Windows.Source.NDIsender.NdiHeight = Convert.ToInt32(Windows.Source.container.ActualHeight);
                         Windows.Source.NDIsender.NdiFrameRateNumerator = int.Parse(Windows.OutputSettings.FPS.ToString()) * 1000;
                         Windows.Source.NDIsender.NdiName = text + " (Source)";
-                        Windows.Source.NDIsender.NDIstart();
+                        Windows.Source.NDIsender.Start();
                         NDI_name.IsEnabled = false;
                         sendingSource = true;
                         sendSource.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00FF51"));
@@ -51,7 +51,7 @@ namespace PetoGraphics
                 }
                 else
                 {
-                    Windows.Source.NDIsender.NDIstop();
+                    Windows.Source.NDIsender.Stop();
                     if (!sendingAlpha)
                     {
                         NDI_name.IsEnabled = true;
@@ -66,8 +66,8 @@ namespace PetoGraphics
         {
             if (!initialized)
             {
-                initialized = Windows.Source.NDIsender.NDIinit();
-                Windows.Alpha.NDIsender.NDIinit();
+                initialized = Windows.Source.NDIsender.Init();
+                Windows.Alpha.NDIsender.Init();
             }
             if (initialized)
             {
@@ -79,7 +79,7 @@ namespace PetoGraphics
                         Windows.Alpha.NDIsender.NdiHeight = Convert.ToInt32(Windows.Source.container.ActualHeight);
                         Windows.Alpha.NDIsender.NdiFrameRateNumerator = Convert.ToInt32(Windows.OutputSettings.FPS.ToString()) * 1000;
                         Windows.Alpha.NDIsender.NdiName = text + " (Alpha)";
-                        Windows.Alpha.NDIsender.NDIstart();
+                        Windows.Alpha.NDIsender.Start();
                         NDI_name.IsEnabled = false;
                         sendingAlpha = true;
                         sendAlpha.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00FF51"));
@@ -87,7 +87,7 @@ namespace PetoGraphics
                 }
                 else
                 {
-                    Windows.Alpha.NDIsender.NDIstop();
+                    Windows.Alpha.NDIsender.Stop();
                     if (!sendingSource)
                     {
                         NDI_name.IsEnabled = true;
