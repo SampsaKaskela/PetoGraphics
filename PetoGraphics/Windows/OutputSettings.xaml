@@ -17,6 +17,8 @@
                 <RowDefinition Height="45px"/>
                 <RowDefinition Height="45px"/>
                 <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
             </Grid.RowDefinitions>
             <Label Content="Background Color" Grid.Column="0" Grid.Row="0"/>
             <ComboBox Name="bgColor" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" DropDownClosed="Color_Changed">
@@ -29,15 +31,15 @@
             <TextBox x:Name="widthSetting" Grid.Column="1" Grid.Row="1" LostFocus="Width_LostFocus" Text="1280" />
             <TextBox x:Name="heightSetting" Grid.Column="3" Grid.Row="1" LostFocus="Height_LostFocus" Text="720" />
             <CheckBox Content="Fullscreen" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Checked="Fullscreen_Checked" Unchecked="Fullscreen_Unchecked"/>
-            <Label Content="Audio Device" Grid.Column="0" Grid.Row="3" Visibility="Collapsed"/>
-            <ComboBox x:Name="audioDeviceSelect" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" DropDownClosed="AudioDeviceSelect_Changed" Visibility="Collapsed"/>
-            <CheckBox Content="Include audio" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Checked="IncludeAudio_Checked" Unchecked="IncludeAudio_Unchecked" Visibility="Collapsed"/>
-            <Label Content="FPS" Grid.Column="0" Grid.Row="3"/>
-            <TextBox x:Name="FPSsetting" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" LostFocus="FPS_LostFocus" Text="60" />
-            <Label Content="Source Monitor" Grid.Column="0" Grid.Row="4"/>
-            <ComboBox x:Name="sourceMonitorSelect" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" DropDownClosed="SourceMonitorSelect_Changed"/>
-            <Label Content="Alpha Monitor" Grid.Column="0" Grid.Row="5"/>
-            <ComboBox x:Name="alphaMonitorSelect" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" DropDownClosed="AlphaMonitorSelect_Changed" />
+            <Label Content="Audio Device" Grid.Column="0" Grid.Row="3"/>
+            <ComboBox x:Name="audioDeviceSelect" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" DropDownClosed="AudioDeviceSelect_Changed" DisplayMemberPath="Key" SelectedValuePath="Value" />
+            <CheckBox Content="Include audio" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Checked="IncludeAudio_Checked" Unchecked="IncludeAudio_Unchecked" />
+            <Label Content="FPS" Grid.Column="0" Grid.Row="5"/>
+            <TextBox x:Name="FPSsetting" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" LostFocus="FPS_LostFocus" Text="60" />
+            <Label Content="Source Monitor" Grid.Column="0" Grid.Row="6"/>
+            <ComboBox x:Name="sourceMonitorSelect" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" DropDownClosed="SourceMonitorSelect_Changed"/>
+            <Label Content="Alpha Monitor" Grid.Column="0" Grid.Row="7"/>
+            <ComboBox x:Name="alphaMonitorSelect" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" DropDownClosed="AlphaMonitorSelect_Changed" />
         </Grid>
     </Grid>
 </Window>

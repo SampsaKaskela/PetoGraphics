@@ -13,17 +13,25 @@ namespace PetoGraphics
         public OutputSettings()
         {
             InitializeComponent();
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            foreach (MMDevice device in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active | DeviceState.Disabled))
+            {
+                audioDeviceSelect.Items.Add(new KeyValuePair<string, MMDevice>(device.DeviceFriendlyName, device));
+            }
+            audioDeviceSelect.SelectedIndex = 0;
+            AudioDevice = ((KeyValuePair<string, MMDevice>)audioDeviceSelect.Items[0]).Value;
+            Windows.Source.NDIsender.AudioDevice = AudioDevice;
         }
 
-        public int AlphaMonitor { get; set; } = 0;
+        public int AlphaMonitor { get; private set; } = 0;
 
-        public MMDevice AudioDevice { get; } = null;
+        public MMDevice AudioDevice { get; private set; } = null;
 
-        public double FPS { get; set; } = 60;
+        public double FPS { get; private set; } = 60;
 
-        public bool IncludeAudio { get; set; } = true;
+        public bool IncludeAudio { get; private set; } = true;
 
-        public int SourceMonitor { get; set; } = 0;
+        public int SourceMonitor { get; private set; } = 0;
 
         public void SetFPS(double fps, List<GraphicController> list)
         {
@@ -76,7 +84,8 @@ namespace PetoGraphics
 
         private void AudioDeviceSelect_Changed(object sender, EventArgs e)
         {
-
+            AudioDevice = (MMDevice)audioDeviceSelect.SelectedValue;
+            Windows.Source.NDIsender.AudioDevice = AudioDevice;
         }
 
         private void Color_Changed(object sender, EventArgs e)
@@ -144,12 +153,12 @@ namespace PetoGraphics
 
         private void IncludeAudio_Checked(object sender, RoutedEventArgs e)
         {
-
+            Windows.Source.NDIsender.IsAudioEnabled = true;
         }
 
         private void IncludeAudio_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            Windows.Source.NDIsender.IsAudioEnabled = false;
         }
 
         private void OutputSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)

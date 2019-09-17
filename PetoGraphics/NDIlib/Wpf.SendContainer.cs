@@ -1,4 +1,6 @@
-﻿using PetoGraphics;
+﻿using NAudio.CoreAudioApi;
+using NAudio.Wave;
+using PetoGraphics;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -141,6 +143,36 @@ namespace NewTek.NDI.WPF
             }
         }
 
+        [Category("NewTek NDI"),
+        Description("If true audio will be send.")]
+        public bool IsAudioEnabled
+        {
+            get { return audioEnabled; }
+            set
+            {
+                if (value != audioEnabled)
+                {
+                    audioEnabled = value;
+                    NotifyPropertyChanged("IsAudioEnabled");
+                }
+            }
+        }
+
+        [Category("NewTek NDI"),
+        Description("Audio device to listen.")]
+        public MMDevice AudioDevice
+        {
+            get { return audioDevice; }
+            set
+            {
+                if (value != audioDevice)
+                {
+                    audioDevice = value;
+                    NotifyPropertyChanged("AudioDevice");
+                }
+            }
+        }
+
         public bool Init()
         {
             // Not required, but "correct". (see the SDK documentation)
@@ -158,11 +190,26 @@ namespace NewTek.NDI.WPF
         {
             exitThread = false;
 
-            // start up a thread to receive on
             sendThread = new Thread(SendThreadProc) { IsBackground = true, Name = "PetoGraphicsNdi" };
             sendThread.Start();
 
+            // Video
             CompositionTarget.Rendering += OnCompositionTargetRendering;
+
+            // Audio
+            if (audioEnabled)
+            {
+                if (audioDevice != null)
+                {
+                    audioCapture = new WasapiLoopbackCapture(audioDevice);
+                    audioCapture.DataAvailable += OnDataAvailable;
+                    audioCapture.StartRecording();
+                }
+                else
+                {
+                    CustomMessageBox.Show("No audio device selected.");
+                }
+            }
         }
 
         public void Stop()
@@ -170,7 +217,15 @@ namespace NewTek.NDI.WPF
             // tell the thread to exit
             exitThread = true;
 
+            // Video
             CompositionTarget.Rendering -= OnCompositionTargetRendering;
+
+            // Audio
+            if (audioCapture != null)
+            {
+                audioCapture.StopRecording();
+                audioCapture = null;
+            }
 
             // wait for it to exit
             if (sendThread != null)
@@ -181,12 +236,20 @@ namespace NewTek.NDI.WPF
             }
 
             // cause the pulling of frames to fail
-            pendingFrames.CompleteAdding();
+            pendingVideoFrames.CompleteAdding();
+            pendingAudioFrames.CompleteAdding();
 
-            // clear any pending frames
-            while (pendingFrames.Count > 0)
+            // clear any pending video frames
+            while (pendingVideoFrames.Count > 0)
             {
-                NDIlib.video_frame_v2_t discardFrame = pendingFrames.Take();
+                NDIlib.video_frame_v2_t discardFrame = pendingVideoFrames.Take();
+                Marshal.FreeHGlobal(discardFrame.p_data);
+            }
+
+            // clear any pending audio frames
+            while (pendingAudioFrames.Count > 0)
+            {
+                NDIlib.audio_frame_v2_t discardFrame = pendingAudioFrames.Take();
                 Marshal.FreeHGlobal(discardFrame.p_data);
             }
         }
@@ -195,10 +258,7 @@ namespace NewTek.NDI.WPF
 
         private void NotifyPropertyChanged(String info)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
         public void Dispose()
@@ -218,28 +278,8 @@ namespace NewTek.NDI.WPF
             {
                 if (disposing)
                 {
-                    // tell the thread to exit
-                    exitThread = true;
-
-                    // wait for it to exit
-                    if (sendThread != null)
-                    {
-                        sendThread.Join();
-
-                        sendThread = null;
-                    }
-
-                    // cause the pulling of frames to fail
-                    pendingFrames.CompleteAdding();
-
-                    // clear any pending frames
-                    while (pendingFrames.Count > 0)
-                    {
-                        NDIlib.video_frame_v2_t discardFrame = pendingFrames.Take();
-                        Marshal.FreeHGlobal(discardFrame.p_data);
-                    }
-
-                    pendingFrames.Dispose();
+                    Stop();
+                    pendingVideoFrames.Dispose();
                 }
                 
                 // Destroy the NDI sender
@@ -270,6 +310,9 @@ namespace NewTek.NDI.WPF
             int frNum = NdiFrameRateNumerator;
             int frDen = NdiFrameRateDenominator;
 
+            RenderTargetBitmap targetBitmap = null;
+            FormatConvertedBitmap fmtConvertedBmp = null;
+
             // sanity
             if (sendInstancePtr == IntPtr.Zero || xres < 8 || yres < 8)
                 return;
@@ -292,9 +335,9 @@ namespace NewTek.NDI.WPF
             // render the content into the bitmap
             targetBitmap.Render(this.Child);
 
-            stride = (xres * 32/*BGRA bpp*/ + 7) / 8;
-            bufferSize = yres * stride;
-            aspectRatio = (float)xres / (float)yres;
+            int stride = (xres * 32/*BGRA bpp*/ + 7) / 8;
+            int bufferSize = yres * stride;
+            float aspectRatio = (float)xres / (float)yres;
             
             // allocate some memory for a video buffer
             IntPtr bufferPtr = Marshal.AllocHGlobal(bufferSize);
@@ -337,9 +380,59 @@ namespace NewTek.NDI.WPF
             }
 
             // add it to the output queue
-            AddFrame(videoFrame);
+            AddVideoFrame(videoFrame);
         }
-        
+
+        private void OnDataAvailable(object sender, WaveInEventArgs e)
+        {
+            int numberOfChannels = audioCapture.WaveFormat.Channels;
+            int sampleRate = audioCapture.WaveFormat.SampleRate;
+            // interpret as 32 bit floating point audio
+            int samples = e.BytesRecorded / 4;
+
+            WaveBuffer waveBuffer = new WaveBuffer(e.Buffer);
+            float[] buffer = waveBuffer.FloatBuffer;
+            for (int index = 0; index < samples; index++)
+            {
+                buffer[index] = waveBuffer.FloatBuffer[index];
+            }
+
+            // allocate some memory for a audio buffer
+            IntPtr bufferPtr = Marshal.AllocHGlobal(numberOfChannels * samples * sizeof(float));
+
+            NDIlib.audio_frame_v2_t audioFrame = new NDIlib.audio_frame_v2_t()
+            {
+                // Sample rate
+                sample_rate = sampleRate,
+                // Number of channels (1 = mono, 2 = stereo)
+                no_channels = numberOfChannels,
+                // Number of samples
+                no_samples = samples,
+                // Timecode.
+                timecode = NDIlib.send_timecode_synthesize,
+                // The audio memory used for this frame
+                p_data = bufferPtr,
+                // The inter channel stride
+                channel_stride_in_bytes = sizeof(float) * samples,
+                // no metadata
+                p_metadata = IntPtr.Zero,
+                // only valid on received frames
+                timestamp = 0
+            };
+
+            for (int ch = 0; ch < audioFrame.no_channels; ch++)
+            {
+                // where does this channel start in the buffer?
+                IntPtr dest = new IntPtr(audioFrame.p_data.ToInt64() + (ch * audioFrame.channel_stride_in_bytes));
+                // copy the buffer into the channel
+                Marshal.Copy(buffer, 0, dest, audioFrame.no_samples);
+            }
+
+            // add it to the output queue
+            AddAudioFrame(audioFrame);
+        }
+
+
         private static void OnNdiSenderPropertyChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             NdiSendContainer s = sender as NdiSendContainer;
@@ -413,9 +506,11 @@ namespace NewTek.NDI.WPF
             bool lastProg = false;
             bool lastPrev = false;
 
-            NDIlib.tally_t tally = new NDIlib.tally_t();
-            tally.on_program = lastProg;
-            tally.on_preview = lastPrev;
+            NDIlib.tally_t tally = new NDIlib.tally_t
+            {
+                on_program = lastProg,
+                on_preview = lastPrev
+            };
 
             while (!exitThread)
             {
@@ -434,16 +529,40 @@ namespace NewTek.NDI.WPF
                         continue;
                     }
 
+                    // Audio should be send first
+                    if (audioEnabled)
+                    {
+                        try
+                        {
+                            // get the next available frame
+                            if (pendingAudioFrames.TryTake(out NDIlib.audio_frame_v2_t frame, 250))
+                            {
+                                // Submit the audio buffer
+                                if (!IsSendPaused)
+                                {
+                                    NDIlib.send_send_audio_v2(sendInstancePtr, ref frame);
+                                }
+
+                                // free the memory from this frame
+                                Marshal.FreeHGlobal(frame.p_data);
+                            }
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            pendingAudioFrames.CompleteAdding();
+                        }
+                        catch {}
+                    }
+
                     try
                     {
                         // get the next available frame
-                        NDIlib.video_frame_v2_t frame;
-                        if (pendingFrames.TryTake(out frame, 250))
+                        if (pendingVideoFrames.TryTake(out NDIlib.video_frame_v2_t frame, 250))
                         {
-                            // this dropps frames if the UI is rendernig ahead of the specified NDI frame rate
-                            while (pendingFrames.Count > 1)
+                            // this drops frames if the UI is rendering ahead of the specified NDI frame rate
+                            while (pendingVideoFrames.Count > 1)
                             {
-                                NDIlib.video_frame_v2_t discardFrame = pendingFrames.Take();
+                                NDIlib.video_frame_v2_t discardFrame = pendingVideoFrames.Take();
                                 Marshal.FreeHGlobal(discardFrame.p_data);
                             }
 
@@ -461,11 +580,9 @@ namespace NewTek.NDI.WPF
                     }
                     catch (OperationCanceledException)
                     {
-                        pendingFrames.CompleteAdding();
+                        pendingVideoFrames.CompleteAdding();
                     }
-                    catch
-                    {
-                    }
+                    catch {}
 
                     // unlock
                     Monitor.Exit(sendInstanceLock);
@@ -495,16 +612,36 @@ namespace NewTek.NDI.WPF
             }
         }
 
-        public bool AddFrame(NDIlib.video_frame_v2_t frame)
+        public bool AddVideoFrame(NDIlib.video_frame_v2_t frame)
         {
             try
             {
-                pendingFrames.Add(frame);
+                pendingVideoFrames.Add(frame);
             }
             catch (OperationCanceledException)
             {
                 // we're shutting down
-                pendingFrames.CompleteAdding();
+                pendingVideoFrames.CompleteAdding();
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AddAudioFrame(NDIlib.audio_frame_v2_t frame)
+        {
+            try
+            {
+                pendingAudioFrames.Add(frame);
+            }
+            catch (OperationCanceledException)
+            {
+                // we're shutting down
+                pendingAudioFrames.CompleteAdding();
                 return false;
             }
             catch
@@ -518,26 +655,29 @@ namespace NewTek.NDI.WPF
         private Object sendInstanceLock = new Object();
         private IntPtr sendInstancePtr = IntPtr.Zero;
 
-        RenderTargetBitmap targetBitmap = null;
-        FormatConvertedBitmap fmtConvertedBmp = null;
-
-        private int stride;
-        private int bufferSize;
-        private float aspectRatio;
-
-        // a thread to send frames on so that the UI isn't dragged down
-        Thread sendThread = null;
-
         // a way to exit the thread safely
-        bool exitThread = false;
-
-        // a thread safe collection to store pending frames
-        BlockingCollection<NDIlib.video_frame_v2_t> pendingFrames = new BlockingCollection<NDIlib.video_frame_v2_t>();
+        private bool exitThread = false;
 
         // used for pausing the send thread
-        bool isPausedValue = false;
+        private bool isPausedValue = false;
 
         // a safe value at the expense of CPU cycles
-        bool unPremultiply = true;
+        private bool unPremultiply = true;
+
+        // a thread to send frames on so that the UI isn't dragged down
+        private Thread sendThread = null;
+
+        // a thread safe collection to store pending frames
+        private BlockingCollection<NDIlib.video_frame_v2_t> pendingVideoFrames = new BlockingCollection<NDIlib.video_frame_v2_t>();
+        private BlockingCollection<NDIlib.audio_frame_v2_t> pendingAudioFrames = new BlockingCollection<NDIlib.audio_frame_v2_t>();
+
+        // determines if audio should be send
+        private bool audioEnabled = false;
+
+        // determines if audio should be send
+        private MMDevice audioDevice = null;
+
+        // instance used to capture target audio device
+        private WasapiLoopbackCapture audioCapture = null;
     }
 }
